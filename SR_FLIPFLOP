@@ -1,26 +1,42 @@
 # Gates-USING-PYTHON
-s = 0  # set input
-r = 0  # reset input
-q = 0  # output
-q_bar = 1  # complement output
+s = 0
+r = 0
+q = 0
+q_bar = 1
 
 while True:
-    # Flip-flop logic
-    if s == 1 and r == 0:
-        q = 1
-        q_bar = 0
-    elif s == 0 and r == 1:
-        q = 0
-        q_bar = 1
-    elif s == 0 and r == 0:
-        q = q
-        q_bar = q_bar
-    else:
-        print("Invalid input")  # catch-all error message
-    
-    # Update inputs
-    s = int(input("Enter set input (0 or 1): "))
-    r = int(input("Enter reset input (0 or 1): "))
-    
-    # Display output
-    print("Output: ", q, q_bar)
+    try:
+        # Get user input
+        s = int(input("Enter S (0 or 1), or enter '2' to exit: "))
+        
+        # Check for exit condition
+        if s == 2:
+            print("Exiting program...")
+            break
+        
+        r = int(input("Enter R (0 or 1): "))
+        
+        # Check for invalid input
+        if s not in [0, 1] or r not in [0, 1]:
+            raise ValueError("Invalid input: inputs must be either 0 or 1")
+        
+        # Determine output
+        if s == 1 and r == 0:
+            q = 1
+            q_bar = 0
+        elif s == 0 and r == 1:
+            q = 0
+            q_bar = 1
+        elif s == 0 and r == 0:
+            pass  # No change in output
+        else:
+            raise ValueError("Invalid input: cannot set both S and R to 1")
+        
+        # Print output
+        print("Q = ", q)
+        print("Q̅ = ", q_bar)
+        
+    except ValueError as e:
+        print(e)  # Print error message
+        continue  # Skip to next iteration of the loop
+
